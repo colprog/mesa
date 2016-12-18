@@ -33,6 +33,7 @@ LOCAL_C_INCLUDES := \
 	$(LOCAL_PATH)/main
 
 LOCAL_STATIC_LIBRARIES := libmesa_loader
+LOCAL_SHARED_LIBRARIES := libdl
 LOCAL_MODULE := libgbm
 
 LOCAL_SRC_FILES := \

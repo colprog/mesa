@@ -67,6 +67,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES += \
 
 LOCAL_STATIC_LIBRARIES += libmesa_nir libmesa_glsl
 
+include external/libcxx/libcxx.mk
 include $(LOCAL_PATH)/Android.gen.mk
 include $(MESA_COMMON_MK)
 include $(BUILD_STATIC_LIBRARY)

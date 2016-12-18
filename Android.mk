@@ -95,9 +95,12 @@ SUBDIRS := \
 	src/mesa \
 	src/util \
 	src/egl \
-	src/amd \
 	src/intel \
 	src/mesa/drivers/dri
+
+ifneq ($(filter r300g r600g radeonsi, $(MESA_GPU_DRIVERS)),)
+SUBDIRS += src/amd
+endif
 
 INC_DIRS := $(call all-named-subdir-makefiles,$(SUBDIRS))
 
