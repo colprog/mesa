@@ -46,6 +46,8 @@
 /* Only MCJIT is available as of LLVM SVN r216982 */
 #if HAVE_LLVM >= 0x0306
 #  define USE_MCJIT 1
+#elif defined(HAVE_ANDROID_PLATFORM)
+#  define USE_MCJIT 0
 #elif defined(PIPE_ARCH_PPC_64) || defined(PIPE_ARCH_S390) || defined(PIPE_ARCH_ARM) || defined(PIPE_ARCH_AARCH64)
 #  define USE_MCJIT 1
 #else
@@ -395,9 +397,15 @@ lp_build_init(void)
    if (gallivm_initialized)
       return TRUE;
 
-   LLVMLinkInMCJIT();
-#if !defined(USE_MCJIT)
+#ifdef USE_MCJIT
+   #if USE_MCJIT
+      LLVMLinkInMCJIT();
+   #else
+      LLVMLinkInJIT();
+   #endif
+#else
    USE_MCJIT = debug_get_bool_option("GALLIVM_MCJIT", 0);
+   LLVMLinkInMCJIT();
    LLVMLinkInJIT();
 #endif
 
